@@ -1,15 +1,17 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
-export default class Controls extends LightningElement {  handleAdd() {
-    factors = [0,2,3,4,5,6];
-    this.dispatchEvent(new CustomEvent('add'));
+export default class Controls extends LightningElement {
+  @api operand = 1;
+
+  handleAdd() {
+    this.dispatchEvent(new CustomEvent('add', {
+      detail: this.operand
+    }));
   }
+  
   handleSubtract() {
-    this.dispatchEvent(new CustomEvent('subtract'));
-  }   handleMultiply(event) {
-    const factor = event.target.dataset.factor;
-    this.dispatchEvent(new CustomEvent('multiply', {
-      detail: factor
+    this.dispatchEvent(new CustomEvent('subtract', {
+      detail: this.operand
     }));
   }
 }
